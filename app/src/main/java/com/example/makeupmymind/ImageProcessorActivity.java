@@ -18,6 +18,8 @@ public class ImageProcessorActivity extends AppCompatActivity {
         Thread thread = ImageProcessor.uploadImage();
         thread.start();
 
+        String filename = JSONParse.getFileName("../../../../name.png");
+
         ImageProcessor.getLeftEyeShadow();
 
         try {
@@ -27,5 +29,6 @@ public class ImageProcessorActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

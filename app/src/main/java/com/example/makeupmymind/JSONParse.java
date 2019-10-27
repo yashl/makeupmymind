@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.security.Key;
 
 public class JSONParse {
+
     public static double calculation(JSONObject object) {
         try {
             JSONObject faceAttributes = object.getJSONObject("faceLandmarks");
@@ -19,5 +20,10 @@ public class JSONParse {
         } catch (Exception e) {
             throw new Error("Unable to get json from file");
         }
+    }
+
+    public static String getFileName(String str) {
+        String[] sp = str.split("/");
+        return sp[sp.length-1];
     }
 }
