@@ -29,12 +29,20 @@ public class ImageProcessorActivity extends AppCompatActivity {
         cropThread.start();
 
 
-        Thread leftThread = ImageProcessor.getLeftEyeShadow();
-        leftThread.start();
+        ImageProcessor.getLeftEyeShadow();
+        //insert the file name you want to change here and get the "name.png"
+        String picturefile = getFileName("../../../../name.png");
 
-        // String picturefile = getFileName("../../../../name.png");
-
+//       ImageProcessor.getLeftEyeShadow();
+        //parseMap();
     }
+
+    public int getLeftEyeRadius(double leftPupilX, double eyeLeftOuterX) {
+        return (int) (Math.round(leftPupilX - eyeLeftOuterX)*2.0);
+    }
+        Thread leftThread = ImageProcessor.getLeftEyeShadow();
+        //leftThread.start();
+        // String picturefile = getFileName("../../../../name.png");
 
 
     public static String getFileName(String str) {
