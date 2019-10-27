@@ -62,6 +62,7 @@ public class CameraActivity extends AppCompatActivity {
     private String text;
     private boolean speechOver = false;
     static final String TAG = "MyActivity";
+    HashSet<String> ultaLink = new HashSet<>();
 
     HashSet<String> colors = new HashSet<>();
 
@@ -339,7 +340,7 @@ public class CameraActivity extends AppCompatActivity {
         String pvsSplitBy = ("\\|");
         HashSet<String> prods = new HashSet<>();
         HashSet<String> prodId = new HashSet<>();
-        HashSet<String> ultaLink = new HashSet<>();
+
         String eyes = "color_eyes";
         String colorEyes = color;
         String lowerColor = color.toLowerCase();
