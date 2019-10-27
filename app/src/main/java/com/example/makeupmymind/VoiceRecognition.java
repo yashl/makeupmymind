@@ -53,13 +53,14 @@ public class VoiceRecognition extends AppCompatActivity {
                     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                     intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getApplication().getPackageName());
 
-                    intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,5);
+                    intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1);
                     sr.startListening(intent);
                 }
             }
         });
         sr = SpeechRecognizer.createSpeechRecognizer(this);
         sr.setRecognitionListener(new Listener());
+
     }
 
 
@@ -103,7 +104,6 @@ public class VoiceRecognition extends AppCompatActivity {
             String str = new String();
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            speechStuff=data.get(0).toString();
             for (int i = 0; i < data.size(); i++)
             {
                 Log.d(TAG, "result " + data.get(i).toString());
