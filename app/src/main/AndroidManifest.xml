@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name= "android.permission.RECORD_AUDIO" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ImageProcessorActivity" />
         <activity
             android:name=".CameraActivity"
             android:label="@string/title_activity_camera"
@@ -31,5 +34,4 @@
             android:name="CLOUDINARY_URL"
             android:value="cloudinary://@yashl" />
     </application>
-
 </manifest>
