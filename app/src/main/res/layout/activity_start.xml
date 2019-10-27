@@ -4,31 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff7f50">
     tools:context=".StartActivity">
 
     <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start!"
+        android:text="Let's start!"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
+        android:fontFamily="@font/rock_salt"
+        android:background="#ffc0cb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.878" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="Welcome to MakeUp Your Mind"
+        android:layout_width="319dp"
+        android:layout_height="183dp"
+        android:layout_marginTop="192dp"
+        android:fontFamily="@font/rock_salt"
+        android:text="MakeUp Your Mind"
         android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/start"
+        android:textColor="#FDD835"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.652"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/photos"
+        android:layout_width="93dp"
+        android:layout_height="60dp"
+        android:text="Photos"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#000000"
+        android:fontFamily="@font/rock_salt"
+        app:layout_constraintBottom_toTopOf="@+id/start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.567" />
 </androidx.constraintlayout.widget.ConstraintLayout>

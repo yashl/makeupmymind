@@ -2,7 +2,9 @@ package com.example.makeupmymind;
 
 public class Global {
     public static String color;
-    public static String finalUrl;
+    public static String finalUrlPicture;
+    public static String finalUrlShadow;
+
 
     public static String getColor() {
         return color;
@@ -12,12 +14,19 @@ public class Global {
         color = colorz;
     }
 
-    public static String getFinalUrl() {
-        return finalUrl;
+    public static String getFinalUrlPicture() {
+        return finalUrlPicture;
     }
 
-    public static void setFinalUrl(String finalUrl1) {
-        finalUrl = finalUrl1;
+    public static void setFinalUrlPicture(String finalUrl1) {
+        finalUrlPicture = finalUrl1;
+    }
+    public static String getFinalUrlShadow() {
+        return finalUrlShadow;
+    }
+
+    public static void setFinalUrlShadow(String finalShadow) {
+        finalUrlShadow = finalShadow;
     }
 
 

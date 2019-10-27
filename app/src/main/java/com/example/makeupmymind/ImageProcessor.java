@@ -40,7 +40,7 @@ public class ImageProcessor {
         //crops image to find the face
         String url1 = cloudinary.url().transformation(new Transformation()
                 .width(200).crop("thumb").gravity("face"))
-                .imageTag("name");
+                .imageTag("name.jpg");
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -50,7 +50,6 @@ public class ImageProcessor {
                             .width(200).crop("thumb").gravity("face"))
                             .imageTag("name.jpg");
                     url1 = url1.substring(10,url1.length()-15);
-                    System.out.println(url1);
                     Map<String, String> params = new HashMap<>();
                     params.put("cloud_name", "yashl");
                     params.put("api_key", "569563497487199");
