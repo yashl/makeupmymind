@@ -18,6 +18,8 @@ public class ImageProcessorActivity extends AppCompatActivity {
         Thread thread = ImageProcessor.uploadImage();
         thread.start();
 
+        ImageProcessor.getLeftEyeShadow();
+
         try {
             String text = new String(Files.readAllBytes(Paths.get("advancedface.JSON")), StandardCharsets.UTF_8);
             JSONObject jsonObject =  new JSONObject(text);

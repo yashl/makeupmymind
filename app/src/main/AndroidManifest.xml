@@ -32,6 +32,6 @@
 
         <meta-data
             android:name="CLOUDINARY_URL"
-            android:value="cloudinary://@yashl" />
+            android:value="cloudinary://569563497487199:N48wEqzlwfWXXLct34JqtVVLSIg@yashl" />
     </application>
 </manifest>
