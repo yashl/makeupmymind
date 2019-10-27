@@ -1,6 +1,11 @@
 package com.example.makeupmymind;
 
 import android.os.Bundle;
+import org.json.JSONObject;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ImageProcessorActivity extends AppCompatActivity {
@@ -13,6 +18,17 @@ public class ImageProcessorActivity extends AppCompatActivity {
         Thread thread = ImageProcessor.uploadImage();
         thread.start();
 
+        String filename = JSONParse.getFileName("../../../../name.png");
+
         ImageProcessor.getLeftEyeShadow();
+
+        try {
+            String text = new String(Files.readAllBytes(Paths.get("advancedface.JSON")), StandardCharsets.UTF_8);
+            JSONObject jsonObject =  new JSONObject(text);
+            double diff = JSONParse.calculateLeftEyeShadow(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
