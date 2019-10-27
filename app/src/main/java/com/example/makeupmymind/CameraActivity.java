@@ -11,7 +11,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
-import android.content.Intent;
 import android.net.Uri;
 
 import android.Manifest;
