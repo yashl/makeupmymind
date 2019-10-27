@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class ImageProcessor
 {
-
     static Cloudinary cloudinary = new Cloudinary();
 
     public static Thread uploadImage()
@@ -16,8 +15,7 @@ public class ImageProcessor
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                try
-                {
+                try {
                     Map<String, String> params = new HashMap<>();
                     params.put("cloud_name", "yashl");
                     params.put("api_key", "569563497487199");
@@ -26,8 +24,7 @@ public class ImageProcessor
                     Map result = cloudinary.uploader().destroy("name.jpg", params);
                     cloudinary.uploader().upload("https://bigdashchungus.s3.us-east-2.amazonaws.com/name.jpg", params);
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -35,4 +32,8 @@ public class ImageProcessor
         return thread;
     }
 
+    public void getEyeShadow() {
+        
+
+    }
 }
