@@ -27,7 +27,7 @@ public class ImageProcessorActivity extends AppCompatActivity {
         try {
             File file = new File("advancedface.JSON");
             JSONObject object = new JSONObject(file.toString());
-            int diff = JSONParse.calculation(object);
+            double diff = JSONParse.calculation(object);
         } catch (Exception e) {
             e.printStackTrace();
         }
