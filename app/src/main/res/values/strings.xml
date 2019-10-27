@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Makeup My Mind</string>
+    <string name="title_activity_image_processor">ImageProcessor</string>
 </resources>
