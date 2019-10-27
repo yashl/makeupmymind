@@ -11,7 +11,7 @@ public class ImageProcessor
 
     static Cloudinary cloudinary = new Cloudinary();
 
-    public static Thread method1()
+    public static Thread uploadImage()
     {
         Thread thread = new Thread(new Runnable() {
             @Override

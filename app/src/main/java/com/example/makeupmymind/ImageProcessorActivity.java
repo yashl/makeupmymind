@@ -10,7 +10,7 @@ public class ImageProcessorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_processor);
 
-        Thread thread = ImageProcessor.method1();
+        Thread thread = ImageProcessor.uploadImage();
         thread.start();
     }
 }
