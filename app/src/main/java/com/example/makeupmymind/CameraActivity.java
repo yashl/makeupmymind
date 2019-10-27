@@ -116,8 +116,9 @@ public class CameraActivity extends AppCompatActivity {
                                 params.put("api_key", "569563497487199");
                                 params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
                                 params.put("public_id", "name");
-                                // cloudinary.uploader().destroy("name", params);
+                                cloudinary.uploader().destroy("name", params);
                                 cloudinary.uploader().upload(new File("/storage/emulated/0/Pictures/MyCameraApp/name.jpg"), params);
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -128,6 +129,11 @@ public class CameraActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Thread cropThread = ImageProcessor.cropFace();
+                cropThread.start();
+
+                Thread leftThread = ImageProcessor.getLeftEyeShadow();
+                leftThread.start();
             }
         });
 
