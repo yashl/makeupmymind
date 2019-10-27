@@ -31,28 +31,27 @@ public class ImageProcessorActivity extends AppCompatActivity {
         cropThread.start();
 
 
-        ImageProcessor.getLeftEyeShadow();
+//        Thread leftThread = ImageProcessor.getLeftEyeShadow(leftEyeRadius, leftEyeHeight);
+//        leftThread.start();
         //insert the file name you want to change here and get the "name.png"
-        String picturefile = getFileName("../../../../name.png");
-
-//       ImageProcessor.getLeftEyeShadow();
+        // String picturefile = getFileName("../../../../name.png");
 
         //parse JSON file
-        try {
-            String str = readJSON();
-            JSONArray jArray = new JSONArray(str);
-            JSONObject jObj = jArray.getJSONObject(0);
-            if (jObj.has("faceLandmarks")){
-                JSONObject faceLandmarks = jObj.getJSONObject("faceLandmarks");
-                //eye calculations
-                leftEyeRadius = (int) Math.round(getLeftEyeRadius(faceLandmarks));
-                leftEyeHeight = (int) Math.round(getLeftEyeHeight(faceLandmarks));
-                Log.d("leftEyeRadius", leftEyeRadius + "");
-                Log.d("leftEyeHeight", leftEyeHeight + "");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String str = readJSON();
+//            JSONArray jArray = new JSONArray(str);
+//            JSONObject jObj = jArray.getJSONObject(0);
+//            if (jObj.has("faceLandmarks")){
+//                JSONObject faceLandmarks = jObj.getJSONObject("faceLandmarks");
+//                //eye calculations
+//                leftEyeRadius = (int) Math.round(getLeftEyeRadius(faceLandmarks));
+//                leftEyeHeight = (int) Math.round(getLeftEyeHeight(faceLandmarks));
+//                Log.d("leftEyeRadius", leftEyeRadius + "");
+//                Log.d("leftEyeHeight", leftEyeHeight + "");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public double getLeftEyeRadius(JSONObject faceLandmarks) {

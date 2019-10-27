@@ -44,7 +44,11 @@ public class ImageProcessor {
             @Override
             public void run() {
                 try {
-                    String url1 = "https://res.cloudinary.com/yashl/image/upload/c_thumb,w_200,g_face/name.jpg";
+                    String url1 = cloudinary.url().transformation(new Transformation()
+                            .width(200).crop("thumb").gravity("face"))
+                            .imageTag("name.jpg");
+                    url1 = url1.substring(10,url1.length()-15);
+                    System.out.println(url1);
                     Map<String, String> params = new HashMap<>();
                     params.put("cloud_name", "yashl");
                     params.put("api_key", "569563497487199");
@@ -53,6 +57,8 @@ public class ImageProcessor {
                     cloudinary.uploader().destroy("face", params);
                     params.put("detection", "adv_face");
                     Map map = cloudinary.uploader().upload(url1, params);
+
+                    //create json
                     System.out.println(map);
                 }catch(Exception e) {
                     e.printStackTrace();
@@ -60,38 +66,59 @@ public class ImageProcessor {
             }
         });
         return thread;
-        //create JSON
 
 
     }
 
-    public static void getLeftEyeShadow() {
+    public static Thread getLeftEyeShadow(final int radius, final int height) {
         Map<String, String> params = new HashMap<>();
         params.put("cloud_name", "yashl");
 
         //create circle
-        int radius = 20;
-        String color = "red";
 
-        String url1 = cloudinary.url().transformation(new Transformation()
-                .width(radius).height(radius).color(color).radius("max").effect("colorize"))
-                .imageTag("one_pixel.");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String url1 = cloudinary.url().transformation(new Transformation()
+                            .width(radius).height(radius).color(Global.getColor()).radius("max").effect("colorize"))
+                            .imageTag("one_pixel");
+                    Map<String, String> params = new HashMap<>();
+                    params.put("cloud_name", "yashl");
+                    params.put("api_key", "569563497487199");
+                    params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
+                    params.put("public_id", "circle_shadow");
+                    cloudinary.uploader().destroy("circle_shadow", params);
+                    cloudinary.uploader().upload(url1, params);
 
-        System.out.println(url1);
+                    // implement json here
+
+
+                    // crop circle
+                    String url2 = cloudinary.url().transformation(new Transformation()
+                            .gravity("north").crop("crop").height(height).width("iw").chain().effect("gradient_fade:40,y_0.8"))
+                            .imageTag("circle_shadow.png");
+                    params.put("public_id", "final_circle_shadow");
+                    cloudinary.uploader().upload(url2, params);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return thread;
 
         //upload url1
-        try {
-            params.put("api_key", "569563497487199");
-            params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
-            params.put("public_id", "circle_shadow");
-            cloudinary.uploader().destroy("circle_shadow", params);
-            cloudinary.uploader().upload(url1, params);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //crop circle
-        //String url2 = JSONParse.getFileName(url1);
+//        try {
+//            params.put("api_key", "569563497487199");
+//            params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
+//            params.put("public_id", "circle_shadow");
+//            cloudinary.uploader().destroy("circle_shadow", params);
+//            cloudinary.uploader().upload(url1, params);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
+
 
 }
