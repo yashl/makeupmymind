@@ -40,9 +40,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
     private SpeechRecognizer speech;
@@ -59,14 +57,17 @@ public class CameraActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //voice recognition
         setContentView(R.layout.activity_camera);
         super.onCreate(savedInstanceState);
         setColors();
+
+        //****voice recognition****
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         speech.setRecognitionListener(new Listener());
         recognizer_intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         button = (Button) findViewById(R.id.voiceRecognition);
+
+        //clicking on button to record sound
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +79,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
-        //taking pictures
+        //***taking pictures****
         takePictureButton = (Button) findViewById(R.id.takePhoto);
         imageview = (ImageView) findViewById(R.id.imageview);
         takePictureButton.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +89,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+        //asking for permissions to use audio and video
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             takePictureButton.setEnabled(false);
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
@@ -98,6 +100,7 @@ public class CameraActivity extends AppCompatActivity {
         speech.stopListening();
     }
 
+    //implementing the android api
     class Listener implements RecognitionListener {
         @Override
         public void onReadyForSpeech(Bundle params)
@@ -169,6 +172,7 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    //taking a picture from the phone
     public void takePicture(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         file = Uri.fromFile(getOutputMediaFile());
@@ -291,5 +295,8 @@ public class CameraActivity extends AppCompatActivity {
         colors.add("White");
     }
 }
+
+
+
 
 
