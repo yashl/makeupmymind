@@ -21,13 +21,16 @@ public class ImageProcessorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_processor);
 
-        Thread thread = ImageProcessor.uploadImage();
-        thread.start();
+        Thread imageThread = ImageProcessor.uploadImage();
+        imageThread.start();
+
+        Thread cropThread = ImageProcessor.cropFace();
+        cropThread.start();
 
         //insert the file name you want to change here
-        String picturefile = JSONParse.getFileName("../../../../name.png");
+         String picturefile = JSONParse.getFileName("../../../../name.png");
 
-//        ImageProcessor.getLeftEyeShadow();
+        ImageProcessor.getLeftEyeShadow();
 
         try {
             String str = readJSONFromAsset();

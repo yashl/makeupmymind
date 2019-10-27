@@ -226,6 +226,7 @@ public class CameraActivity extends AppCompatActivity {
         String eyes = "color_eyes";
         String colorEyes = color;
         String lowerColor = color.toLowerCase();
+        Global.setColor(lowerColor);
         String url = "https://www.ulta.com/ulta?productId=";
 
         try {
