@@ -43,12 +43,17 @@ import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.HashMap;
 import java.util.HashSet;
 
 import com.cloudinary.Util;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+
+import static com.example.makeupmymind.ImageProcessor.cloudinary;
 
 public class CameraActivity extends AppCompatActivity {
     private SpeechRecognizer speech;
@@ -102,6 +107,24 @@ public class CameraActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     takePicture();
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("cloud_name", "yashl");
+                                params.put("api_key", "569563497487199");
+                                params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
+                                params.put("public_id", "name");
+                                // cloudinary.uploader().destroy("name", params);
+                                cloudinary.uploader().upload(new File("/storage/emulated/0/Pictures/MyCameraApp/name.jpg"), params);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    thread.start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
