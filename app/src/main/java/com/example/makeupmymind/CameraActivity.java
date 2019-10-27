@@ -271,7 +271,6 @@ public class CameraActivity extends AppCompatActivity {
 //    }
 
     public void analyzeVoice(String voice) {
-        Log.d(TAG, "************");
         for(String text : voice.split(" ")) {
             String capText = text.substring(0, 1).toUpperCase() + text.substring(1);
             Log.d(TAG, capText);
@@ -295,6 +294,7 @@ public class CameraActivity extends AppCompatActivity {
         String eyes = "color_eyes";
         String colorEyes = color;
         String lowerColor = color.toLowerCase();
+        Global.setColor(lowerColor);
         String url = "https://www.ulta.com/ulta?productId=";
 
         try {
