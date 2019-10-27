@@ -21,7 +21,7 @@ public class ImageProcessor
                     Map<String, String> params = new HashMap<>();
                     params.put("cloud_name", "yashl");
 
-                    cloudinary.uploader().unsignedUpload("https://upload.wikimedia.org/wikipedia/commons/8/8d/President_Barack_Obama.jpg", "hkupsid3", params);
+                    cloudinary.uploader().unsignedUpload("s3://bigdashchungus.s3.us-east-2.amazonaws.com/test.jpg", "hkupsid3", params);
                 }
                 catch (Exception e)
                 {
