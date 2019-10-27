@@ -5,6 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff7f50"
     tools:context=".CameraActivity">
 
     <include
@@ -12,36 +13,36 @@
         layout="@layout/content_camera"
         android:layout_width="406dp"
         android:layout_height="726dp"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="5dp" /><![CDATA[
-
-    android:layout_height="wrap_content" />
-
-    ]]>
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="2dp" />
 
     <Button
         android:id="@+id/voiceRecognition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="232dp"
+        android:layout_height="101dp"
         android:text="@string/button"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="@+id/include"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749"
-        tools:text="voice" />
+        app:layout_constraintVertical_bias="0.774"
+        tools:text="Let us know what you want to see..." />
 
     <ImageView
         android:id="@+id/imageview"
-        android:layout_width="255dp"
-        android:layout_height="159dp"
+        android:layout_width="254dp"
+        android:layout_height="317dp"
         android:layout_above="@id/takePhoto"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="128dp"
+        android:text="@string/button"
+        app:layout_constraintBottom_toTopOf="@+id/voiceRecognition"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/takePhoto"
@@ -50,8 +51,9 @@
         android:text="@string/picture"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/voiceRecognition" />
+        app:layout_constraintTop_toBottomOf="@+id/voiceRecognition"
+        app:layout_constraintVertical_bias="0.336" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
