@@ -18,14 +18,17 @@ public class ImageProcessorActivity extends AppCompatActivity {
         Thread thread = ImageProcessor.uploadImage();
         thread.start();
 
+        String filename = JSONParse.getFileName("../../../../name.png");
+
         ImageProcessor.getLeftEyeShadow();
 
         try {
             String text = new String(Files.readAllBytes(Paths.get("advancedface.JSON")), StandardCharsets.UTF_8);
             JSONObject jsonObject =  new JSONObject(text);
-            double diff = JSONParse.calculation(jsonObject);
+            double diff = JSONParse.calculateLeftEyeShadow(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

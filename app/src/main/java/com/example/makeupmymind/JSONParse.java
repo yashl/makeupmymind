@@ -20,4 +20,9 @@ public class JSONParse {
             throw new Error("Unable to get json from file");
         }
     }
+
+    public static String getFileName(String str) {
+        String[] sp = str.split("/");
+        return sp[sp.length - 1];
+    }
 }
