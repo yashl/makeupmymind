@@ -62,16 +62,11 @@ public class CameraActivity extends AppCompatActivity {
     //public static String pictureFilePath = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         setContentView(R.layout.activity_camera);
         super.onCreate(savedInstanceState);
         setColors();
 
         //****voice recognition****
-        super.onCreate(savedInstanceState);
-        setColors();
-        setContentView(R.layout.activity_camera);
-
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         speech.setRecognitionListener(new Listener());
         recognizer_intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

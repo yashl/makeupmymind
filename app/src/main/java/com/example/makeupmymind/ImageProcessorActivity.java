@@ -31,50 +31,21 @@ public class ImageProcessorActivity extends AppCompatActivity {
         String picturefile = getFileName("../../../../name.png");
 
 //       ImageProcessor.getLeftEyeShadow();
+        parseMap();
 
-        //parse JSON file
-        try {
-            String str = readJSON();
-            JSONArray jArray = new JSONArray(str);
-            JSONObject jObj = jArray.getJSONObject(0);
-            if (jObj.has("faceLandmarks")){
-                JSONObject faceLandmarks = jObj.getJSONObject("faceLandmarks");
-                //eye calculations
-                leftEyeRadius = (int) Math.round(getLeftEyeRadius(faceLandmarks));
-                leftEyeHeight = (int) Math.round(getLeftEyeHeight(faceLandmarks));
-                Log.d("leftEyeRadius", leftEyeRadius + "");
-                Log.d("leftEyeHeight", leftEyeHeight + "");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public double getLeftEyeRadius(JSONObject faceLandmarks) {
-        try {
-            JSONObject leftPupil = faceLandmarks.getJSONObject("pupilLeft");
-            JSONObject eyeLeftOuter = faceLandmarks.getJSONObject("eyeLeftOuter");
-            double leftPupilX = leftPupil.getDouble("x");
-            double eyeLeftOuterX = eyeLeftOuter.getDouble("x");
-            return (leftPupilX - eyeLeftOuterX)*2.0;
-        } catch (JSONException e) {
-             throw new Error("Unable to create JSON Object");
-        }
+    public int getLeftEyeRadius(double leftPupilX, double eyeLeftOuterX) {
+        return (int) (Math.round(leftPupilX - eyeLeftOuterX)*2.0);
     }
 
-    public double getLeftEyeHeight(JSONObject faceLandmarks) {
-        try {
-            JSONObject eyeLeftTop = faceLandmarks.getJSONObject("eyeLeftTop");
-            JSONObject eyeLeftOuter = faceLandmarks.getJSONObject("eyeLeftOuter");
-            double eyeLeftTopy = eyeLeftTop.getDouble("y");
-            double eyeLeftOuterY = eyeLeftOuter.getDouble("y");
-            return eyeLeftOuterY - eyeLeftTopy;
-        } catch (JSONException e) {
-            throw new Error("Unable to create JSON Object");
-        }
+    public int getLeftEyeHeight(double eyeLeftOuterY,  double eyeLeftTopY) {
+        return (int) Math.round(eyeLeftOuterY - eyeLeftTopY);
+
     }
 
-    public String readJSON() {
+    public String readFile() {
         String json = null;
         try {
             //calling the JSON file here
@@ -88,7 +59,41 @@ public class ImageProcessorActivity extends AppCompatActivity {
             ex.printStackTrace();
             return null;
         }
+
         return json;
+    }
+
+    public void parseMap() {
+        int index = 0;
+        String str = readFile(), temp = "";
+        String[] sp = str.split(",");
+        double leftPupilX = 0.0, eyeLeftOuterX = 0.0, eyeLeftOuterY = 0.0, eyeLeftTopY = 0.0;
+
+        for(int i = 0; i < sp.length; i++) {
+            if (sp[i].contains("left_pupil")) {
+                index = sp[i].indexOf('x');
+                temp = sp[i].substring(index + 2);
+                leftPupilX = Double.parseDouble(temp);
+            }
+
+            if (sp[i].contains("left_outer")) {
+                index = sp[i].indexOf('x');
+                temp = sp[i].substring(index + 2);
+                eyeLeftOuterX = Double.parseDouble(temp);
+                index = sp[i+1].indexOf('y');
+                temp = sp[i+1].substring(index+2, sp[i+1].indexOf("}"));
+                eyeLeftOuterY = Double.parseDouble(temp);
+            }
+
+            if(sp[i].contains("left_top")) {
+                index = sp[i+1].indexOf('y');
+                temp = sp[i+1].substring(index+2, sp[i+1].indexOf("}"));
+                eyeLeftTopY = Double.parseDouble(temp);
+            }
+        }
+
+        leftEyeRadius = getLeftEyeRadius(leftPupilX, eyeLeftOuterX);
+        leftEyeHeight = getLeftEyeHeight(eyeLeftOuterY, eyeLeftTopY);
     }
 
     public static String getFileName(String str) {
