@@ -133,6 +133,8 @@ public class CameraActivity extends AppCompatActivity {
 
                 str += data.get(i);
             }
+
+            analyzeVoice(str);
             text = "results: "+String.valueOf(data.size());
         }
         @Override
