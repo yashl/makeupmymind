@@ -37,8 +37,6 @@ public class ImageProcessorActivity extends AppCompatActivity {
 
 //       ImageProcessor.getLeftEyeShadow();
         parseMap();
-
-
     }
 
     public int getLeftEyeRadius(double leftPupilX, double eyeLeftOuterX) {

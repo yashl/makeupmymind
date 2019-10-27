@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff7f50">
     tools:context=".StartActivity">
 
     <Button
@@ -23,9 +24,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="Welcome to MakeUp Your Mind"
+        android:text="MakeUp Your Mind"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="fffaf0"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
