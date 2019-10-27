@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         requestAudioPermissions();
         Button start = findViewById(R.id.start);
+        Button progress = findViewById(R.id.photos);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,7 +34,17 @@ public class StartActivity extends AppCompatActivity {
                 //startActivity(new Intent(StartActivity.this, ImageProcessorActivity.class));
             }
         });
+        progress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(StartActivity.this, CameraActivity.class));
+
+                //remove before commit
+                startActivity(new Intent(StartActivity.this, ProgressActivity.class));
+            }
+        });
     }
+
 
     private void requestAudioPermissions() {
         if (ContextCompat.checkSelfPermission(this,

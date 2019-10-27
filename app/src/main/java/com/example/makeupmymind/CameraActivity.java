@@ -267,6 +267,7 @@ public class CameraActivity extends AppCompatActivity {
                 Log.d(TAG, mediaStorageDir.getPath());
                 file = new File(mediaStorageDir.getPath() + File.separator + "name.jpg");
                 return file.createNewFile();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

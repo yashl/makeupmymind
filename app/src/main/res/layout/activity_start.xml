@@ -15,18 +15,19 @@
         android:textColor="#FFFFFF"
         app:backgroundTint="#000000"
         android:fontFamily="@font/rock_salt"
+        android:background="#ffc0cb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.878" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="319dp"
         android:layout_height="183dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginBottom="384dp"
         android:fontFamily="@font/rock_salt"
         android:text="MakeUp Your Mind"
         android:textAlignment="center"
@@ -34,8 +35,18 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/start"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/photos"
+        android:layout_width="93dp"
+        android:layout_height="60dp"
+        android:text="Photos"
+        app:layout_constraintBottom_toTopOf="@+id/start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.311" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.567" />
 </androidx.constraintlayout.widget.ConstraintLayout>
