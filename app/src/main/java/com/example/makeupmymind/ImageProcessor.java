@@ -5,6 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class ImageProcessor {
             "api_key", "569563497487199",
             "api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg"));
 
-    public static Thread uploadImage() {
+    public static Thread uploadImage(final File file) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -26,7 +27,7 @@ public class ImageProcessor {
                     params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
                     params.put("public_id", "name");
                     Map result = cloudinary.uploader().destroy("name", params);
-                    cloudinary.uploader().upload("https://bigdashchungus.s3.us-east-2.amazonaws.com/name.jpg", params);
+                    cloudinary.uploader().upload(file, params);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
