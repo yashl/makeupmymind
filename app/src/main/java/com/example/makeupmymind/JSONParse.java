@@ -7,16 +7,21 @@ import java.security.Key;
 
 public class JSONParse {
 
-    public static double calculation(JSONObject object) {
+    public static double calculation(JSONArray arr) {
         try {
-            JSONObject faceAttributes = object.getJSONObject("faceLandmarks");
-            JSONObject leftPupil = faceAttributes.getJSONObject("pupilLeft");
-            JSONObject eyeLeftOuter = faceAttributes.getJSONObject("eyeLeftOuter");
+            for(int i = 0; i < arr.length(); i++) {
+                JSONObject obj = arr.getJSONObject(i);
 
-            double leftPupilX = leftPupil.getDouble("x");
-            double eyeLeftOuterX = eyeLeftOuter.getDouble("x");
+                if (obj.has("faceLandmarkss")) {
+                    JSONObject leftPupil = obj.getJSONObject("pupilLeft");
+                    JSONObject eyeLeftOuter = obj.getJSONObject("eyeLeftOuter");
+                    double leftPupilX = leftPupil.getDouble("x");
+                    double eyeLeftOuterX = eyeLeftOuter.getDouble("x");
+                    return leftPupilX - eyeLeftOuterX;
+                }
+            }
 
-            return leftPupilX - eyeLeftOuterX;
+            return 0;
         } catch (Exception e) {
             throw new Error("Unable to get json from file");
         }
