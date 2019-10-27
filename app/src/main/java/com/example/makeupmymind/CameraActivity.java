@@ -16,7 +16,7 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-//        Button captureButton = findViewById(R.id.);
+        Button captureButton = findViewById(R.id.button);
 
 //        captureButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
