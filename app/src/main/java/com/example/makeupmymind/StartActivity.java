@@ -30,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
 //                startActivity(new Intent(StartActivity.this, CameraActivity.class));
 
                 //remove before commit
-                startActivity(new Intent(StartActivity.this, ImageProcessorActivity.class));
+                startActivity(new Intent(StartActivity.this, CameraActivity.class));
             }
         });
     }
