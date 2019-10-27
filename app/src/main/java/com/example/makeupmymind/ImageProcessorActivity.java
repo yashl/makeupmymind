@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ImageProcessorActivity extends AppCompatActivity {
 
-    private double leftEyeRadius, leftEyeHeight;
+    private int leftEyeRadius, leftEyeHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class ImageProcessorActivity extends AppCompatActivity {
             if (jObj.has("faceLandmarks")){
                 JSONObject faceLandmarks = jObj.getJSONObject("faceLandmarks");
                 //eye calculations
-                leftEyeRadius = getLeftEyeRadius(faceLandmarks);
-                leftEyeHeight = getLeftEyeHeight(faceLandmarks);
+                leftEyeRadius = (int) Math.round(getLeftEyeRadius(faceLandmarks));
+                leftEyeHeight = (int) Math.round(getLeftEyeHeight(faceLandmarks));
                 Log.d("leftEyeRadius", leftEyeRadius + "");
                 Log.d("leftEyeHeight", leftEyeHeight + "");
             }
