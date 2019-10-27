@@ -8,7 +8,10 @@ import java.util.Map;
 
 public class ImageProcessor
 {
-    static Cloudinary cloudinary = new Cloudinary();
+    static Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "yashl",
+            "api_key", "569563497487199",
+            "api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg"));
 
     public static Thread uploadImage()
     {
@@ -52,15 +55,13 @@ public class ImageProcessor
         int radius = 20;
         String color = "red";
 
-        cloudinary.url().transformation(new Transformation()
-                .width(radius).height(radius).color(color).radius("max"))
+        String url1 = cloudinary.url().transformation(new Transformation()
+                .width(radius).height(radius).color(color).radius("max").effect("colorize"))
                 .imageTag("one_pixel.jpg");
+
+        System.out.println(url1);
 
         //crop circle
     }
 
-    public void getEyeShadow() {
-
-
-    }
 }
