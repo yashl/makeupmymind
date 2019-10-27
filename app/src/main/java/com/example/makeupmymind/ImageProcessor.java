@@ -20,7 +20,7 @@ public class ImageProcessor
                     Map<String, String> params = new HashMap<>();
                     params.put("cloud_name", "yashl");
 
-                    String fileinput = "s3://bigdashchungus.s3.us-east-2.amazonaws.com/" + "name";
+                    String fileinput = "s3://bigdashchungus.s3.us-east-2.amazonaws.com/" + "name.jpg";
                     cloudinary.uploader().unsignedUpload(fileinput, "hkupsid3", params);
                 }
                 catch (Exception e)
@@ -32,4 +32,9 @@ public class ImageProcessor
         return thread;
     }
 
+    public void getEyeShadow()
+    {
+        
+
+    }
 }
