@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.security.Key;
 
 public class JSONParse {
-    public static double calculation(JSONObject object) {
+    public static double calculateLeftEyeShadow(JSONObject object) {
         try {
             JSONObject faceAttributes = object.getJSONObject("faceLandmarks");
             JSONObject leftPupil = faceAttributes.getJSONObject("pupilLeft");
