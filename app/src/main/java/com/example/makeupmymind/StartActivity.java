@@ -1,12 +1,17 @@
 package com.example.makeupmymind;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,11 +23,13 @@ import java.util.HashSet;
 
 public class StartActivity extends AppCompatActivity {
 
+    private int MY_PERMISSIONS_RECORD_AUDIO = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
+        requestAudioPermissions();
         Button start = findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,74 +39,33 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    private void dataAnalysis() {
-        BufferedReader br = null;
-        BufferedReader ps = null;
-        InputStream product_catolog = getResources().openRawResource(R.raw.product_catalog);
-        InputStream sku_metadata = getResources().openRawResource(R.raw.sku_metadata);
-        String line = "";
-        String cvsSplitBy = ",";
-        String pvsSplitBy = ("\\|");
-        HashSet<String> prods = new HashSet<>();
-        HashSet<String> prodId = new HashSet<>();
-        HashSet<String> ultaLink = new HashSet<>();
-        String eyes = "color_eyes";
-        String colorEyes = "Black";
-        String url = "https://www.ulta.com/ulta?productId=";
+    private void requestAudioPermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
 
-        try {
+            //When permission is not granted by user, show them message why this permission is needed.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.RECORD_AUDIO)) {
+                Toast.makeText(this, "Please grant permissions to record audio", Toast.LENGTH_LONG).show();
 
-            br = new BufferedReader(
-                    new InputStreamReader(sku_metadata, Charset.forName("UTF-8")));
-            while ((line = br.readLine()) != null) {
-                String[] product = line.split(cvsSplitBy);
-                if(eyes.equals(product[1]) && colorEyes.equals(product[2])) {
-                    if(!prods.contains(product[0])) {
-                        prods.add(product[0]);
-                    }
-                }
-            }
+                //Give user option to still opt-in the permissions
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO},
+                        MY_PERMISSIONS_RECORD_AUDIO);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } else {
+                // Show user dialog to grant permission to record audio
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO},
+                        MY_PERMISSIONS_RECORD_AUDIO);
             }
         }
-        try {
-            ps = new BufferedReader(
-                    new InputStreamReader(product_catolog, Charset.forName("UTF-8")));
-            while ((line = ps.readLine()) != null) {
-                String[] productLog = line.split(pvsSplitBy);
-                if(prods.contains(productLog[0]) && productLog[5].equals("Eyeshadow")) {
-                    prodId.add(productLog[1]);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    ps.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        for(String s : prodId) {
-            ultaLink.add(url + s);
-        }
-        for(String s : ultaLink) {
-            Log.d("StartActivity", s);
+        //If permission is granted, then go ahead recording audio
+        else if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED) {
+
         }
     }
 }
