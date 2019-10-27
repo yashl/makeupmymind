@@ -24,9 +24,14 @@ public class ImageProcessorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_processor);
 
-        Thread thread = ImageProcessor.uploadImage();
-        thread.start();
+        Thread imageThread = ImageProcessor.uploadImage();
+        imageThread.start();
 
+        Thread cropThread = ImageProcessor.cropFace();
+        cropThread.start();
+
+
+        ImageProcessor.getLeftEyeShadow();
         //insert the file name you want to change here and get the "name.png"
         String picturefile = getFileName("../../../../name.png");
 
