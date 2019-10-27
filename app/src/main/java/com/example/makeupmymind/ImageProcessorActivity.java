@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ImageProcessorActivity extends AppCompatActivity {
 
+    private double leftEyeRadius, leftEyeHeight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,21 +28,52 @@ public class ImageProcessorActivity extends AppCompatActivity {
         thread.start();
 
         //insert the file name you want to change here
-        String picturefile = JSONParse.getFileName("../../../../name.png");
+        String picturefile = getFileName("../../../../name.png");
 
 //        ImageProcessor.getLeftEyeShadow();
 
+        //parse JSON
         try {
-            String str = readJSONFromAsset();
+            String str = readJSON();
             JSONArray jArray = new JSONArray(str);
-            double diff = JSONParse.calculateLeftEyeRadius(jArray);
+            JSONObject jObj = jArray.getJSONObject(0);
+            if (jObj.has("faceLandmarks")){
+                JSONObject faceLandmarks = jObj.getJSONObject("faceLandmarks");
+                double leftEyeRadius = getLeftEyeRadius(faceLandmarks);
+                double leftEyeHeight = getLeftEyeHeight(faceLandmarks);
+                Log.d("leftEyeRadius", leftEyeRadius + "");
+                Log.d("leftEyeHeight", leftEyeHeight + "");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public String readJSONFromAsset() {
+    public double getLeftEyeRadius(JSONObject faceLandmarks) {
+        try {
+            JSONObject leftPupil = faceLandmarks.getJSONObject("pupilLeft");
+            JSONObject eyeLeftOuter = faceLandmarks.getJSONObject("eyeLeftOuter");
+            double leftPupilX = leftPupil.getDouble("x");
+            double eyeLeftOuterX = eyeLeftOuter.getDouble("x");
+            return (leftPupilX - eyeLeftOuterX)*2.0;
+        } catch (JSONException e) {
+             throw new Error("Unable to create JSON Object");
+        }
+    }
+
+    public double getLeftEyeHeight(JSONObject faceLandmarks) {
+        try {
+            JSONObject eyeLeftTop = faceLandmarks.getJSONObject("eyeLeftTop");
+            JSONObject eyeLeftOuter = faceLandmarks.getJSONObject("eyeLeftOuter");
+            double eyeLeftTopy = eyeLeftTop.getDouble("y");
+            double eyeLeftOuterY = eyeLeftOuter.getDouble("y");
+            return eyeLeftOuterY - eyeLeftTopy;
+        } catch (JSONException e) {
+            throw new Error("Unable to create JSON Object");
+        }
+    }
+
+    public String readJSON() {
         String json = null;
         try {
             InputStream is = getResources().openRawResource(R.raw.advancedface);
@@ -53,5 +87,10 @@ public class ImageProcessorActivity extends AppCompatActivity {
             return null;
         }
         return json;
+    }
+
+    public static String getFileName(String str) {
+        String[] sp = str.split("/");
+        return sp[sp.length - 1];
     }
 }
