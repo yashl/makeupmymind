@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Makeup My Mind</string>
     <string name="title_activity_camera">CameraActivity</string>
+<<<<<<< HEAD
     <string name="button">Button</string>
+=======
+    <string name="picture">Take a Picture</string>
+>>>>>>> ab5d7c85a050987d7e45c32eb762bb3a54e513fb
 </resources>
