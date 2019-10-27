@@ -2,25 +2,34 @@ package com.example.makeupmymind;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.HashSet;
 
-public class MainActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        dataAnalysis();
+        setContentView(R.layout.activity_start);
+
+        Button start = findViewById(R.id.start);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StartActivity.this, CameraActivity.class));
+            }
+        });
     }
 
     private void dataAnalysis() {
@@ -43,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             br = new BufferedReader(
                     new InputStreamReader(sku_metadata, Charset.forName("UTF-8")));
             while ((line = br.readLine()) != null) {
-                Log.d("MainActivity", line);
                 String[] product = line.split(cvsSplitBy);
                 if(eyes.equals(product[1]) && colorEyes.equals(product[2])) {
                     if(!prods.contains(product[0])) {
@@ -91,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             ultaLink.add(url + s);
         }
         for(String s : ultaLink) {
-            Log.d("MainActivity", s);
+            Log.d("StartActivity", s);
         }
     }
 }
