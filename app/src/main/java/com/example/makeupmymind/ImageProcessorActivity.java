@@ -27,20 +27,21 @@ public class ImageProcessorActivity extends AppCompatActivity {
         Thread thread = ImageProcessor.uploadImage();
         thread.start();
 
-        //insert the file name you want to change here
+        //insert the file name you want to change here and get the "name.png"
         String picturefile = getFileName("../../../../name.png");
 
-//        ImageProcessor.getLeftEyeShadow();
+//       ImageProcessor.getLeftEyeShadow();
 
-        //parse JSON
+        //parse JSON file
         try {
             String str = readJSON();
             JSONArray jArray = new JSONArray(str);
             JSONObject jObj = jArray.getJSONObject(0);
             if (jObj.has("faceLandmarks")){
                 JSONObject faceLandmarks = jObj.getJSONObject("faceLandmarks");
-                double leftEyeRadius = getLeftEyeRadius(faceLandmarks);
-                double leftEyeHeight = getLeftEyeHeight(faceLandmarks);
+                //eye calculations
+                leftEyeRadius = getLeftEyeRadius(faceLandmarks);
+                leftEyeHeight = getLeftEyeHeight(faceLandmarks);
                 Log.d("leftEyeRadius", leftEyeRadius + "");
                 Log.d("leftEyeHeight", leftEyeHeight + "");
             }
@@ -76,6 +77,7 @@ public class ImageProcessorActivity extends AppCompatActivity {
     public String readJSON() {
         String json = null;
         try {
+            //calling the JSON file here
             InputStream is = getResources().openRawResource(R.raw.advancedface);
             int size = is.available();
             byte[] buffer = new byte[size];
