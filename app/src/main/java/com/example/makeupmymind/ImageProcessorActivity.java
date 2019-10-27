@@ -12,5 +12,7 @@ public class ImageProcessorActivity extends AppCompatActivity {
 
         Thread thread = ImageProcessor.uploadImage();
         thread.start();
+
+        ImageProcessor.getLeftEyeShadow();
     }
 }
