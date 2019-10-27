@@ -23,8 +23,8 @@ public class ImageProcessor {
                     params.put("cloud_name", "yashl");
                     params.put("api_key", "569563497487199");
                     params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
-                    params.put("public_id", "name.jpg");
-                    Map result = cloudinary.uploader().destroy("name.jpg", params);
+                    params.put("public_id", "name");
+                    Map result = cloudinary.uploader().destroy("name", params);
                     cloudinary.uploader().upload("https://bigdashchungus.s3.us-east-2.amazonaws.com/name.jpg", params);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -38,7 +38,7 @@ public class ImageProcessor {
         //crops image to find the face
         String url1 = cloudinary.url().transformation(new Transformation()
                 .width(200).crop("thumb").gravity("face"))
-                .imageTag("name.jpg");
+                .imageTag("name");
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -49,8 +49,8 @@ public class ImageProcessor {
                     params.put("cloud_name", "yashl");
                     params.put("api_key", "569563497487199");
                     params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
-                    params.put("public_id", "face.jpg");
-                    cloudinary.uploader().destroy("face.jpg", params);
+                    params.put("public_id", "face");
+                    cloudinary.uploader().destroy("face", params);
                     params.put("detection", "adv_face");
                     Map map = cloudinary.uploader().upload(url1, params);
                     System.out.println(map);
@@ -75,7 +75,7 @@ public class ImageProcessor {
 
         String url1 = cloudinary.url().transformation(new Transformation()
                 .width(radius).height(radius).color(color).radius("max").effect("colorize"))
-                .imageTag("one_pixel.jpg");
+                .imageTag("one_pixel.");
 
         System.out.println(url1);
 
@@ -83,8 +83,8 @@ public class ImageProcessor {
         try {
             params.put("api_key", "569563497487199");
             params.put("api_secret", "N48wEqzlwfWXXLct34JqtVVLSIg");
-            params.put("public_id", "circle_shadow.png");
-            cloudinary.uploader().destroy("circle_shadow.png", params);
+            params.put("public_id", "circle_shadow");
+            cloudinary.uploader().destroy("circle_shadow", params);
             cloudinary.uploader().upload(url1, params);
         } catch (Exception e) {
             e.printStackTrace();

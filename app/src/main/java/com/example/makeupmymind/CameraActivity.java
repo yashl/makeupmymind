@@ -12,11 +12,10 @@ import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import android.net.Uri;
-
+import android.graphics.Bitmap;
 import android.Manifest;
 import androidx.appcompat.app.AppCompatActivity;
 import android.provider.MediaStore;
-
 import android.widget.Button;
 import android.view.View;
 
@@ -29,40 +28,41 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.io.IOException;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
 public class CameraActivity extends AppCompatActivity {
     private SpeechRecognizer speech;
     private Intent recognizer_intent;
-
     private Button button;
     private String text;
     private boolean speechOver = false;
     static final String TAG = "MyActivity";
+
     HashSet<String> colors = new HashSet<>();
+
     private Button takePictureButton;
     private ImageView imageview;
     private Uri file;
-
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    //public static String pictureFilePath = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //voice recognition
-        setContentView(R.layout.activity_camera);
         super.onCreate(savedInstanceState);
         setColors();
+        setContentView(R.layout.activity_camera);
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         speech.setRecognitionListener(new Listener());
         recognizer_intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -77,27 +77,23 @@ public class CameraActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //taking pictures
         takePictureButton = (Button) findViewById(R.id.takePhoto);
         imageview = (ImageView) findViewById(R.id.imageview);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            takePictureButton.setEnabled(false);
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 takePicture(imageview);
             }
         });
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            takePictureButton.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
-        }
     }
     public void stop(Context context) {
         Log.d(TAG, "stopped listening");
         speech.stopListening();
     }
-
     class Listener implements RecognitionListener {
         @Override
         public void onReadyForSpeech(Bundle params)
@@ -139,7 +135,6 @@ public class CameraActivity extends AppCompatActivity {
             for (int i = 0; i < data.size(); i++)
             {
                 Log.d(TAG, "result " + data.get(i));
-
                 str += data.get(i);
             }
             analyzeVoice(data.get(0).toString());
@@ -156,9 +151,6 @@ public class CameraActivity extends AppCompatActivity {
             Log.d(TAG, "onEvent " + eventType);
         }
     }
-
-    //determining whether or not we have the camera permission since the only reason we need the
-    //external storage permission is to save images from the camera
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 0) {
@@ -168,41 +160,43 @@ public class CameraActivity extends AppCompatActivity {
             }
         }
     }
-
     public void takePicture(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = Uri.fromFile(getOutputMediaFile());
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-
-        startActivityForResult(intent, 100);
+        boolean createdFile = createFile(1);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100) {
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                System.out.println("ResultCode=" +RESULT_OK);
                 imageview.setImageURI(file);
             }
         }
     }
-
-    private static File getOutputMediaFile(){
+    private static boolean createFile(int type){
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CameraDemo");
-
+                Environment.DIRECTORY_PICTURES), "MyCameraApp");
+        File file;
         if (!mediaStorageDir.exists()){
             if (!mediaStorageDir.mkdirs()){
-                return null;
+                Log.d("MyCameraApp", "failed to create directory");
+                return false;
             }
         }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_"+ timeStamp + ".jpg");
+        if(type == MEDIA_TYPE_IMAGE) { ;
+            try {
+                Log.d(TAG, mediaStorageDir.getPath());
+                file = new File(mediaStorageDir.getPath() + File.separator + "name.jpg");
+                return file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public void analyzeVoice(String voice) {
-        Log.d(TAG, "************");
         for(String text : voice.split(" ")) {
             String capText = text.substring(0, 1).toUpperCase() + text.substring(1);
             Log.d(TAG, capText);
@@ -292,5 +286,3 @@ public class CameraActivity extends AppCompatActivity {
         colors.add("White");
     }
 }
-
-
