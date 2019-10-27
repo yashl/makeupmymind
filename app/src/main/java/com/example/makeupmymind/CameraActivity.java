@@ -226,6 +226,7 @@ public class CameraActivity extends AppCompatActivity {
         HashSet<String> ultaLink = new HashSet<>();
         String eyes = "color_eyes";
         String colorEyes = color;
+        String lowerColor = color.toLowerCase();
         String url = "https://www.ulta.com/ulta?productId=";
 
         try {
