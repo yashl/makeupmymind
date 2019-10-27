@@ -5,7 +5,6 @@ import com.cloudinary.utils.ObjectUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class ImageProcessor
 {
     static Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
@@ -38,7 +37,7 @@ public class ImageProcessor
     public void cropFace()
     {
         //crops image to find the face
-        cloudinary.url().transformation(new Transformation()
+        String url1 = cloudinary.url().transformation(new Transformation()
                 .width(400).height(400).gravity("face").radius("max").crop("crop").chain()
                 .width(200).crop("scale")).imageTag("name.jpg");
 
@@ -61,7 +60,12 @@ public class ImageProcessor
 
         System.out.println(url1);
 
+        //upload url1
+
+
         //crop circle
+        //String url2 = JSONParse.getFileName(url1);
+
     }
 
 }
