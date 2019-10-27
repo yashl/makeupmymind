@@ -23,7 +23,7 @@ public class ImageProcessorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_processor);
 
         Thread imageThread = ImageProcessor.uploadImage();
-        // imageThread.start();
+        imageThread.start();
 
         Thread cropThread = ImageProcessor.cropFace();
         cropThread.start();
