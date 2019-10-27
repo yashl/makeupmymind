@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Makeup My Mind</string>
+<<<<<<< HEAD
     <string name="title_activity_image_processor">ImageProcessor</string>
+=======
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="button">Button</string>
+    <string name="picture">Take a Picture</string>
+>>>>>>> 1a5eb07670c2fd4df1656ac17682088640cb50b6
 </resources>
