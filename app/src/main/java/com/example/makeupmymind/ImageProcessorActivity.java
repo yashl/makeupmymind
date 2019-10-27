@@ -1,6 +1,7 @@
 package com.example.makeupmymind;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,18 +30,19 @@ public class ImageProcessorActivity extends AppCompatActivity {
 //        ImageProcessor.getLeftEyeShadow();
 
         try {
-            JSONArray jArray = new JSONArray(readJSONFromAsset("advancedface.JSON"));
-            double diff = JSONParse.calculation(jArray);
+            String str = readJSONFromAsset();
+            JSONArray jArray = new JSONArray(str);
+            double diff = JSONParse.calculateLeftEyeRadius(jArray);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public String readJSONFromAsset(String filename) {
+    public String readJSONFromAsset() {
         String json = null;
         try {
-            InputStream is = getAssets().open(filename);
+            InputStream is = getResources().openRawResource(R.raw.advancedface);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

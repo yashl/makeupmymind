@@ -7,19 +7,18 @@ import java.security.Key;
 
 public class JSONParse {
 
-    public static double calculation(JSONArray arr) {
+    public static double calculateLeftEyeRadius(JSONArray arr) {
         try {
-            for(int i = 0; i < arr.length(); i++) {
-                JSONObject obj = arr.getJSONObject(i);
-
-                if (obj.has("faceLandmarkss")) {
-                    JSONObject leftPupil = obj.getJSONObject("pupilLeft");
-                    JSONObject eyeLeftOuter = obj.getJSONObject("eyeLeftOuter");
-                    double leftPupilX = leftPupil.getDouble("x");
-                    double eyeLeftOuterX = eyeLeftOuter.getDouble("x");
-                    return leftPupilX - eyeLeftOuterX;
-                }
+            JSONObject obj = arr.getJSONObject(0);
+            if (obj.has("faceLandmarks")) {
+                JSONObject faceLandmarks = arr.getJSONObject(0).getJSONObject("faceLandmarks");
+                JSONObject leftPupil = faceLandmarks.getJSONObject("pupilLeft");
+                JSONObject eyeLeftOuter = faceLandmarks.getJSONObject("eyeLeftOuter");
+                double leftPupilX = leftPupil.getDouble("x");
+                double eyeLeftOuterX = eyeLeftOuter.getDouble("x");
+                return (leftPupilX - eyeLeftOuterX)*2.0;
             }
+
 
             return 0;
         } catch (Exception e) {
@@ -29,6 +28,6 @@ public class JSONParse {
 
     public static String getFileName(String str) {
         String[] sp = str.split("/");
-        return sp[sp.length-1];
+        return sp[sp.length - 1];
     }
 }
